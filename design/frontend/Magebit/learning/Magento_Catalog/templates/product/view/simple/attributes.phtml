@@ -1,0 +1,38 @@
+<?php
+/**
+ * This file is part of the Magebit learning package.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magebit PageListWidget
+ * to newer versions in the future.
+ *
+ * @copyright Copyright (c) 2019 Magebit, Ltd. (https://magebit.com/)
+ * @license   GNU General Public License ("GPL") v3.0
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+$_helper = $this->helper(Magento\Catalog\Helper\Output::class);
+$_product = $block->getProduct();
+$attributes = $block->getData("view_model");
+?>
+<?php if ($_additional = $block->getAdditionalData()) :?>
+    <div class="additional-attributes-wrapper table-wrapper">
+        <ul class="additional-attributes">
+        <?php foreach ($attributes->getAttributes($_additional) as $attribute) :?>
+
+            <li>
+                <strong class="label <?= $block->escapeHtmlAttr($attribute['label']) ?>">
+                <?= $block->escapeHtml($attribute['label']) ?>: </strong>
+                <?= /* @noEscape
+                     * */ $_helper->productAttribute($_product, $attribute['value'], $attribute['code']) ?></li>
+        <?php endforeach; ?>
+        </ul>
+        <?php if($_product->getShortDescription()): ?>
+            <span class="short-description"><?= $_product->getShortDescription();?></span>
+        <?php endif; ?>
+    </div>
+<?php endif;?>
+

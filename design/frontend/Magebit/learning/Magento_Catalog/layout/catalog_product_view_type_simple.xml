@@ -1,0 +1,44 @@
+<?xml version="1.0" ?>
+<!--
+/**
+ * This file is part of the Magebit learning package.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magebit PageListWidget
+ * to newer versions in the future.
+ *
+ * @copyright Copyright (c) 2019 Magebit, Ltd. (https://magebit.com/)
+ * @license   GNU General Public License ("GPL") v3.0
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <attribute name="class" value="catalog-product-view-simple"/>
+        <referenceContainer name="product.info.social" remove="true" />
+        <referenceBlock name="product.info.simple.extra.catalog_inventory_stockqty_default" template="Magento_Catalog::product/view/simple/stockqty.phtml"/>
+        <referenceContainer name="product.info.details" remove="true" />
+        <move element="product.info.upsell" destination="product.info.main" after="product.info.addtocart"/>
+        <referenceBlock name="product.info.upsell" template="Magento_Catalog::product/list/items_simple.phtml"/>
+        <referenceBlock name="catalog.product.related" template="Magento_Catalog::product/list/items_simple.phtml"/>
+        <referenceBlock name="product.attributes" template="Magento_Catalog::product/view/simple/attributes.phtml">
+            <arguments>
+                <argument name="view_model" xsi:type="object">Magebit\ViewModel\ViewModel\Attributes</argument>
+            </arguments>
+        </referenceBlock>
+        <referenceBlock name="product.info.addtocart">
+            <arguments>
+                <argument name="view_model" xsi:type="object">Magebit\ViewModel\ViewModel\StockQty</argument>
+            </arguments>
+        </referenceBlock>
+
+        <move element="product.info.overview" destination="product.attributes"/>
+        <move element="product.attributes" destination="product.info.form.content" before="product.info.addtocart"/>
+        <move element="product.info.type" destination="product.info.addtocart"/>
+        <move element="product.info.simple.extra.catalog_inventory_stockqty_default" destination="product.info.addtocart"/>
+        <referenceBlock name="product.info.addtocart" template="Magento_Catalog::product/view/simple/addtocart.phtml"/>
+    </body>
+</page>
